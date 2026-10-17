@@ -1,8 +1,6 @@
 package org.example;
 
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 // Return record
 record CountingSortResult(ArrayList<Integer> sortedArray, ArrayList<Integer> sortedWithoutDuplications) {};
