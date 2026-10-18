@@ -15,20 +15,15 @@ def counting_sort(array):
     for number in array:
         count_arr[number] += 1
 
-    # Saving sorted numbers without duplications in list
+    # Saving sorted numbers in lists
     sorted_wo_duplications = []
-
-    for index in range(max_number + 1):
-        if count_arr[index] != 0:
-            sorted_wo_duplications.append(index)
-
-    # Saving sorted numbers in list ! it changes provided array
     sorted_arr = []
 
     for index in range(max_number + 1):
-        while count_arr[index] > 0:
-            sorted_arr.append(index)
-            count_arr[index] -= 1
+        if count_arr[index] > 0:
+            sorted_wo_duplications.append(index)            # saving sorted numbers without duplications
+            sorted_arr.extend([index] * count_arr[index])   # adding number by multiple of count_arr[index]
+
 
     return {
         "sorted_arr": sorted_arr,
