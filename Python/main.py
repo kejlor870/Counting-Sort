@@ -33,15 +33,20 @@ def counting_sort(array):
 # --- MAIN ---
 if __name__ == '__main__':
 
-    numbers = [1, 3, 2, 3, 4, 7, 2, 7, 12, 2, 9, 6, 7]
+    # Get numbers from user and split by space
+    userInput = input("Podaj liczby rozdzielone spacja: ").split()
 
-    print(f"Podane liczby: {', '.join(str(number) for number in numbers)}")
+    # Convert string element to int if is digit, letters are ignored
+    user_numbers = [int(element) for element in userInput if element.isdigit()]
 
-    result = counting_sort(numbers.copy())
+    # Save result in variable after function call
+    result = counting_sort(user_numbers.copy())
 
     if result is not None:
+        print(f"Podane liczby: {', '.join(str(number) for number in user_numbers)}")
+
         # Unpack data from result
         numbers_sorted, numbers_sorted_wo_duplications = result.values()
 
         print(f'Posortowana tablica:\n\t', numbers_sorted)
-        print(f'Posortowana tablica \033[1mbez dubplikatow\033[0m:\n\t', numbers_sorted_wo_duplications)
+        print(f'Posortowana tablica \033[1mbez duplikatow\033[0m:\n\t', numbers_sorted_wo_duplications)
