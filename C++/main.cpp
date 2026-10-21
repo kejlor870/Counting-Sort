@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <sstream>
+#include <string>
 using namespace std;
 
 vector<int> CountingSort(vector<int> numbers){
@@ -33,10 +35,35 @@ vector<int> CountingSort(vector<int> numbers){
 
 int main()
 {
+    string line;
+    vector<int> numbers;
+    
     cout << "-- Counting Sort --" << endl;
     
-    vector<int> numbers = {10, 16, 3, 4, 16, 2, 3, 11, 24, 2, 5, 1, 16};
+    // Get user provided numbers
+    cout << "Podaj liczby oddzielone spacjami: ";
+    getline(cin, line);
     
+    // Insert numbers to array
+    stringstream ss(line);
+    int number;
+    while(!ss.eof()){   // while ss doesn't reach the end of string
+        if(ss >> number){   // converting to int
+            if(number >= 0) numbers.push_back(number);
+        }else{
+            // Validate letters
+            ss.clear();
+            ss.get();
+        }
+    }
+    
+    // Empty string error message and program interruption
+    if(numbers.empty()){
+        cout << "Blad: Nie podano poprawnych liczb." << endl;
+        return 0;
+    }
+    
+    // Display saved numbers
     cout << "Podane liczby: ";
     for(int number : numbers) cout << number << " ";
     
