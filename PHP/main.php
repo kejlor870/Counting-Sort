@@ -1,7 +1,17 @@
 <?php
 require_once 'countingSort.php';
 
-$numbers = [1, 4, 2, 10, 1, 18, 6, 3, 8, 2, 7, 24, 1, 6, 10];
+// Get numbers from user
+$userInput = readline("Podaj liczby oddzielone spacjami: ");
+
+// Create array from user input divided by ' ' - space and filter from double space
+$userInputElements = array_filter(explode(' ', trim($userInput)), 'strlen');
+
+// Validate letters and only keep numbers
+$userInputNumbers = array_filter($userInputElements, 'is_numeric');
+
+// Convert userInputNumbers to int type
+$numbers = array_map('intval', $userInputNumbers);
 
 echo "Podane liczby: " . implode(' ', $numbers) . "\n";
 
