@@ -3,12 +3,11 @@
 #include <algorithm>
 #include <sstream>
 #include <string>
+#include <utility>
 using namespace std;
 
-vector<int> CountingSort(vector<int> numbers){
-    if(numbers.empty()){
-        return {};
-    }
+pair<vector<int>, vector<int>> CountingSort(vector<int> numbers){
+    if(numbers.empty()) return {{}, {}};
     
     // Search for the biggest number, max_element returns reference in memory to that number
     //  - * pulls out acctual number from that reference
@@ -20,17 +19,20 @@ vector<int> CountingSort(vector<int> numbers){
     // Filling countArr with numbers of occurrences
     for(int index : numbers) countArr[index]++;
     
-    // Sorting
+    // Sorting /without duplications
+    vector<int> sortedWODuplications;
     vector<int> sortedArr;
     
     for(int i=0; i < maxNumber + 1; i++){
+        if(countArr[i] > 0) sortedWODuplications.push_back(i);
+        
         while(countArr[i] > 0){
             sortedArr.push_back(i);
             countArr[i]--;
         }
     }
     
-    return sortedArr;
+    return {sortedArr, sortedWODuplications};
 }
 
 int main()
@@ -68,11 +70,14 @@ int main()
     for(int number : numbers) cout << number << " ";
     
     // Sorting
-    vector<int> sortedArray = CountingSort(numbers);
+    auto [sortedArray, sortedWODupl] = CountingSort(numbers);
     
     // Display sorted
     cout << "\nPosortowane liczby: \n\t";
     for(int number : sortedArray) cout << number << " ";
+    
+    cout << "\nPosortowane liczby bez duplikatow: \n\t";
+    for(int number : sortedWODupl) cout << number << " ";
     
 
     return 0;

@@ -14,7 +14,7 @@ Program przyjmuje nieujemne liczby całkowite oddzielone spacjami. Liczby ujemne
 * 🔄 **Sortowanie rosnące** – tworzy nowy wektor, w którym liczby występują w kolejności od najmniejszej do największej.
 * 🔁 **Obsługa duplikatów** – zachowuje wszystkie wystąpienia danej liczby w posortowanym wyniku.
 * ✅ **Obsługa pustego wejścia** – wyświetla komunikat o błędzie, jeśli nie podano żadnych poprawnych liczb.
-* 📦 **Funkcja sortująca** – funkcja `CountingSort()` zwraca posortowany wektor liczb całkowitych.
+* 📦 **Funkcja sortująca** – funkcja `CountingSort()` zwraca parę wektorów: pełny posortowany ciąg oraz wersję bez duplikatów.
 
 ---
 
@@ -24,7 +24,7 @@ Program przyjmuje nieujemne liczby całkowite oddzielone spacjami. Liczby ujemne
 
 Do uruchomienia projektu wymagane są:
 
-* **Kompilator C++** obsługujący standard C++11 lub nowszy, np. GCC.
+* **Kompilator C++** obsługujący standard C++17 lub nowszy, np. GCC.
 * **Terminal lub konsola** do wprowadzania danych i wyświetlania wyników.
 
 ### Instrukcja krok po kroku
@@ -35,7 +35,7 @@ Do uruchomienia projektu wymagane są:
 4. Skompiluj program za pomocą polecenia:
 
    ```bash
-   g++ -std=c++11 main.cpp -o counting_sort
+   g++ -std=c++17 main.cpp -o counting_sort
    ```
 
 5. Uruchom skompilowany program.
@@ -72,8 +72,10 @@ Po uruchomieniu programu użytkownik zostanie poproszony o podanie liczb oddziel
 -- Counting Sort --
 Podaj liczby oddzielone spacjami: 5 2 9 2 7 5 1
 Podane liczby: 5 2 9 2 7 5 1
-Posortowane liczby:
-    1 2 2 5 5 7 9
+Posortowane liczby: 
+    1 2 2 5 5 7 9 
+Posortowane liczby bez duplikatow: 
+    1 2 5 7 9
 ```
 
 Program wyświetla najpierw liczby w kolejności podanej przez użytkownika, a następnie wynik sortowania rosnącego.
@@ -96,6 +98,8 @@ Podaj liczby oddzielone spacjami: 5 abc -2 2 xyz 5 1
 Podane liczby: 5 2 5 1
 Posortowane liczby:
     1 2 5 5
+Posortowane liczby bez duplikatow:
+    1 2 5 
 ```
 
 Nieprawidłowe znaki są pomijane podczas odczytywania danych. Program nie wyświetla osobnego komunikatu dla każdego odrzuconego elementu.
@@ -127,7 +131,7 @@ Funkcja `CountingSort(numbers)` sortuje liczby bez bezpośredniego porównywania
 3. 🧮 **Tworzenie tablicy liczników** – tworzony jest wektor `countArr` wypełniony zerami, o długości `maxNumber + 1`. Indeks każdego elementu odpowiada wartości zliczanej liczby.
 4. 📊 **Zliczanie wystąpień** – program przechodzi przez wektor wejściowy i zwiększa odpowiedni licznik za pomocą instrukcji `countArr[index]++`.
 5. 🔄 **Tworzenie posortowanego wektora** – program przechodzi przez wektor liczników od indeksu `0` do `maxNumber`. Każda liczba zostaje dodana do wyniku tyle razy, ile wynosi liczba jej wystąpień.
-6. 📤 **Zwracanie wyniku** – funkcja `CountingSort()` zwraca wektor `sortedArr`, zawierający liczby posortowane rosnąco.
+6. 📤 **Zwracanie wyniku** – funkcja `CountingSort()` zwraca strukturę std::pair zwierającą dwa wektory (sortedArr oraz sortedWODuplications). W funkcji main są one rozpakowywane za pomocą mechanizmu Structured Binding.
 
 ### 📦 Struktura danych
 
@@ -136,6 +140,7 @@ Program korzysta z trzech głównych wektorów:
 * `numbers` – przechowuje poprawne, nieujemne liczby całkowite wprowadzone przez użytkownika.
 * `countArr` – przechowuje liczbę wystąpień poszczególnych wartości. Indeks wektora odpowiada wartości liczby.
 * `sortedArr` – przechowuje końcowy wynik sortowania.
+* `sortedWODuplications` – przechowuje unikalne wartości w kolejności rosnącej (bez powtórzeń).
 
 Przykładowo, dla danych wejściowych:
 
@@ -163,6 +168,7 @@ Na podstawie liczników program tworzy posortowany wektor:
 ```
 
 Powtórzenia są zachowywane, ponieważ każda wartość jest dodawana do wyniku tyle razy, ile wystąpiła w danych wejściowych.
+Natomiast przy wektorze bez duplikatów, wartość jest dodawana tylko raz.
 
 ---
 
@@ -191,11 +197,12 @@ Counting Sort jest szczególnie przydatny, gdy liczba elementów jest duża, a z
 
 ## 🧰 Technologie
 
-* 💻 **C++11 lub nowszy**
+* 💻 **C++17 lub nowszy**
 * 🖥️ **Interfejs konsolowy**
 * 🧮 **Counting Sort**
 * 📋 **`std::vector`** – przechowywanie liczb i wyników
 * 🔤 **`std::string` oraz `std::getline()`** – odczytywanie danych wejściowych
 * 🔄 **`std::stringstream`** – odczytywanie liczb z tekstu
 * 🔍 **`std::max_element()`** – wyszukiwanie największej wartości
+* 🔄 **`std::pair` oraz `Structured Binding`** – do zwracania i rozpakowywania wielu tablic z jednej funkcji
 * 📚 **Biblioteki standardowe C++** – `iostream`, `vector`, `algorithm`, `sstream` oraz `string`
