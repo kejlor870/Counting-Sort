@@ -7,28 +7,28 @@ const { stdin: input, stdout: output } = require('node:process');
 function CountingSort(array) {
     if(array.length === 0) return array;
 
-    // Find the biggest number
+    // Find the biggest and smaller number
+    const minNumber = Math.min(...array);
     const maxNumber = Math.max(...array);
 
-    // Create counting array filled with zeros for every number: 0 -> maxNumber
-    let countArr = new Array(maxNumber + 1).fill(0);
+    // Create counting array filled with zeros for every number: 0 -> maxNumber - minNumber
+    let countArr = new Array(maxNumber - minNumber + 1).fill(0);
 
     // Filling countArr on index from numbers array value
-        // for(let i = 0; i < maxNumber + 1; i++) countArr[numbers[i]]++;
-    for(let number of array) countArr[number]++;
+    for(let number of array) countArr[number - minNumber]++;
 
     // Filling sortedArray with value if countArr value isn't 0 else insert null
     //  after filling filter method insert only values to array without nulls
         // let simpleSortedArr = new Array();
-        // for(let i = 0; i < countArr.length; i++) countArr[i] != 0 ? simpleSortedArr.push(i) : null;
-    let simpleSortedArr = countArr.map((value, index) => value != 0 ? index : null).filter(value => value != null);
+        // for(let i = 0; i < countArr.length; i++) countArr[i] != 0 ? simpleSortedArr.push(i + minNumber) : null;
+    let simpleSortedArr = countArr.map((value, index) => value != 0 ? (index + minNumber) : null).filter(value => value != null);
 
     // Filling sortedArray with sorted values
     let sortedArray = new Array();
 
     for(let i = 0; i < countArr.length; i++){
         while(countArr[i] > 0){
-            sortedArray.push(i);
+            sortedArray.push(i + minNumber);
             countArr[i]--;
         }
     }
