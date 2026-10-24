@@ -77,4 +77,5 @@ async function main() {
     rl.close()
 }
 
-main();
+module.exports = CountingSort;
+if(require.main === module) main();
