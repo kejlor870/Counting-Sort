@@ -1,0 +1,8 @@
+{
+    "require-dev": {
+        "phpunit/phpunit": "^9.6"
+    },
+    "scripts": {
+        "test": "C:\\xampp\\php\\php.exe vendor\\phpunit\\phpunit\\phpunit"
+    }
+}
