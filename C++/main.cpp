@@ -12,22 +12,23 @@ pair<vector<int>, vector<int>> CountingSort(vector<int> numbers){
     // Search for the biggest number, max_element returns reference in memory to that number
     //  - * pulls out acctual number from that reference
     int maxNumber = *max_element(numbers.begin(), numbers.end());
+    int minNumber = *min_element(numbers.begin(), numbers.end());
     
     // Creating new vector with 0s
-    vector<int> countArr(maxNumber + 1, 0);
+    vector<int> countArr(maxNumber - minNumber + 1, 0);
     
     // Filling countArr with numbers of occurrences
-    for(int index : numbers) countArr[index]++;
+    for(int index : numbers) countArr[index - minNumber]++;
     
     // Sorting /without duplications
     vector<int> sortedWODuplications;
     vector<int> sortedArr;
     
-    for(int i=0; i < maxNumber + 1; i++){
-        if(countArr[i] > 0) sortedWODuplications.push_back(i);
+    for(int i=0; i < maxNumber - minNumber + 1; i++){
+        if(countArr[i] > 0) sortedWODuplications.push_back(i + minNumber);
         
         while(countArr[i] > 0){
-            sortedArr.push_back(i);
+            sortedArr.push_back(i + minNumber);
             countArr[i]--;
         }
     }
@@ -51,7 +52,7 @@ int main()
     int number;
     while(!ss.eof()){   // while ss doesn't reach the end of string
         if(ss >> number){   // converting to int
-            if(number >= 0) numbers.push_back(number);
+            numbers.push_back(number);
         }else{
             // Validate letters
             ss.clear();
