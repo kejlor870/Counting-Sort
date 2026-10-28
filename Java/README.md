@@ -49,6 +49,82 @@ Program można również uruchomić bezpośrednio z poziomu IDE, np. IntelliJ ID
 
 ---
 
+## 🧪 Testy jednostkowe
+
+Projekt wykorzystuje **JUnit 5** do testowania poprawności działania algorytmu Counting Sort. Testy jednostkowe sprawdzają metodę `CountingSort.sort()` dla różnych danych wejściowych, w tym liczb ujemnych, dodatnich oraz powtarzających się wartości.
+
+### Wykorzystane technologie
+
+- **JUnit 5** – biblioteka do tworzenia i uruchamiania testów jednostkowych.
+- **Apache Maven** – narzędzie do zarządzania zależnościami, kompilowania projektu i uruchamiania testów.
+- **JUnit Assertions** – metody `assertEquals()` i `assertNull()` służące do weryfikowania wyników.
+
+### Struktura plików testowych
+
+Testy znajdują się w katalogu `src/test/java/org/example/`, w pliku `CountingSortTest.java`.
+
+```text
+src/
+├── main/
+│   └── java/
+│       └── org/example/
+│           ├── CountingSort.java
+│           └── Main.java
+└── test/
+    └── java/
+        └── org/example/
+            └── CountingSortTest.java
+```
+
+### Zakres testów
+
+Klasa `CountingSortTest` zawiera osiem testów jednostkowych:
+
+| Test | Opis |
+|---|---|
+| `shouldSortPositiveNumbers()` | Sprawdza sortowanie liczb dodatnich oraz usuwanie duplikatów. |
+| `shouldSortNegativeNumbers()` | Sprawdza poprawność sortowania liczb ujemnych. |
+| `shouldSortMixedNumbers()` | Sprawdza sortowanie liczb ujemnych, zera i dodatnich w jednej tablicy. |
+| `shouldHandleDuplicates()` | Weryfikuje poprawną obsługę powtarzających się wartości. |
+| `shouldHandleSingleElement()` | Sprawdza działanie algorytmu dla listy zawierającej jeden element. |
+| `shouldHandleAlreadySortedNumbers()` | Sprawdza działanie algorytmu dla danych już posortowanych. |
+| `shouldReturnNullForEmptyArray()` | Sprawdza, czy metoda zwraca `null` dla pustej listy. |
+| `shouldReturnNullForNullArray()` | Sprawdza, czy metoda zwraca `null` dla argumentu `null`. |
+
+### Uruchamianie testów
+
+Aby uruchomić wszystkie testy, otwórz terminal w głównym katalogu projektu, w którym znajduje się plik `pom.xml`, a następnie wykonaj polecenie:
+
+```bash
+mvn test
+```
+
+Maven skompiluje kod produkcyjny i testowy, a następnie uruchomi testy przy użyciu JUnit 5.
+
+Jeżeli wszystkie testy zakończą się powodzeniem, Maven wyświetli komunikat:
+
+```text
+BUILD SUCCESS
+```
+
+W przypadku niepowodzenia raport wskaże test, który nie przeszedł, oraz oczekiwany i rzeczywisty wynik.
+
+Testy można również uruchamiać bezpośrednio w IntelliJ IDEA, klikając ikonę uruchamiania obok klasy `CountingSortTest` lub wybranej metody testowej.
+
+### Jak działają testy?
+
+Testy korzystają z trzech podstawowych elementów:
+
+1. **Przygotowanie danych** – utworzenie listy wejściowej przy użyciu `ArrayList` i `List.of()`.
+2. **Wykonanie algorytmu** – wywołanie metody `CountingSort.sort(input)`.
+3. **Weryfikacja wyniku** – porównanie otrzymanych list z oczekiwanymi wynikami za pomocą `assertEquals()` lub sprawdzenie wartości `null` za pomocą `assertNull()`.
+
+Dzięki testom można wykryć błędy w sortowaniu, obsłudze duplikatów oraz przypadkach brzegowych bez konieczności ręcznego uruchamiania programu dla każdego zestawu danych.
+
+**Uwaga:** testy sprawdzają metodę sortującą, a nie cały interfejs konsolowy. Walidacja tekstu wprowadzanego przez użytkownika i komunikaty wyświetlane przez klasę `Main` nie są bezpośrednio objęte tym zestawem testów.
+
+---
+
 ## 💡 Przykład działania
 
 Po uruchomieniu programu użytkownik zostanie poproszony o podanie liczb oddzielonych spacjami.
@@ -146,5 +222,6 @@ Przykładowo, sortowanie liczb od `-10` do `10` wymaga tablicy liczników o dłu
 
 - ☕ **Java 21+**
 - 📦 **Apache Maven**
+- 🧪 **JUnit 5 – testy jednostkowe**
 - 🖥️ **Interfejs konsolowy**
 - 🧮 **Counting Sort z obsługą liczb ujemnych**
