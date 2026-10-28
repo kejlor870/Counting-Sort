@@ -18,17 +18,21 @@ public class CountingSort {
         int maxNumber = array.getFirst();   // Get first as the hint
         for(int number : array) if(number > maxNumber) maxNumber = number;
 
+        // Find the smallest number
+        int minNumber = array.getFirst();   // Get first as the hint
+        for(int number : array) if(number < minNumber) minNumber = number;
+
         // Create empty array to count with indexes
-        int[] countArr = new int[maxNumber + 1];
+        int[] countArr = new int[maxNumber - minNumber + 1];
 
         // Filling countArr with +1 on indexes from given array
-        for (int number : array) countArr[number]++;
+        for (int number : array) countArr[number - minNumber]++;
 
         // Display sorted array without duplications
         ArrayList<Integer> sortedWithoutDuplications = new ArrayList<>();
 
         for(int i=0; i < countArr.length; i++){
-            if(countArr[i] != 0) sortedWithoutDuplications.add(i);
+            if(countArr[i] != 0) sortedWithoutDuplications.add(i + minNumber);
         }
 
         // Display sorted array
@@ -36,7 +40,7 @@ public class CountingSort {
 
         for(int i=0; i < countArr.length; i++){
             while (countArr[i] != 0){
-                sorted.add(i);
+                sorted.add(i + minNumber);
                 countArr[i]--;
             }
         }
